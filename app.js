@@ -1,90 +1,59 @@
-
-
-// http.createServer([options][, requestListener])
-//menggunakan modul core node js untuk membuat web server nama modulnya http
-//http.createServer([options][, requestListener])
-
-//request listiner bisa dipanggil  sebagai variable atau panggil menggunakan function,kita pilih panggil menggunakan function
-//request listener akan menerima 2 parameter request(req) dan respon(res)
-//req:apa yg dikirimkan ke server
-//res:apa yg dikembalikan sebagai respon oleh web server
-//untuk menjalankan server kita panggil sebuah method yg namanya listen
-// http.createServer((req,res)=>{} )
-
-//---------------------------------
-
-// const server = http.createServer((req,res)=>{
-
-// })
-
-
-// res.write('hello world!') //respon web menampilkan hello world
-
-// server.listen(3000,()=>{
-//     console.log('server is listening on port 3000')
-// }) //core modul http dibuat ke variable baru dijalankan servernya dengan method listen
-
-//---------------------------------
-
-const http=require('http')
-const port=10002
-const fs=require('fs')
-
-
-const renderHTML=(path,res)=>{
-    fs.readFile(path,(err,data)=>{ //method membaca isi file 
-        if (err){
-            res.writeHead(404)
-            res.write('error file not found')
-            
-        } else {
-            res.write(data)//perintah didalam server sudah selesai
-         }
-         res.end()
-        })
-    }
+const express = require('express')
+const app = express()
+const port = 3000
 
 
 
-http
-    .createServer((req,res)=>{  //create server
-        //membuat sistem routing
-        res.writeHead(200,{   //mengubah dari plain text ke html
-            'Content-Type': 'text/html',
-        })
-        const url=req.url  //apapun yg dikembalikan dari request ambil urlnya  
-        // console.log(url) //mengecheck url yg kita input di web browser
-        
-        
 
-        switch (url) {
-            case '/about':
-                renderHTML('./about.html',res)
-                break;
-                case '/contact':
-                    renderHTML('./contact.html',res)
-                    break;
-                    default:
-                        renderHTML('./index.html',res)
-                            break;
-        }
 
-        
-        
-        
-        
-        
-        
-        
-        // if (url==='/about'){
-        //     renderHTML('./about.html',res)
-        // }else if (url==='/contact'){
-        //         renderHTML('./contact.html',res)
-        //     }else{ 
-        //             renderHTML('./index.html',res)
+app.get('/', (req, res) => {
+//   res.send('Homepage root')
+//   res.json({
+//     nama: "roy naldo",
+//     email: "roynaldo@gmail.com",
+//     noHP: "08119439420"
 
-        //         }
-    }) 
-    .listen(port,()=>{             //menjalankan server
-            console.log(`server is listening on port ${port}..`)
-    })
+//   })
+  res.sendFile('./index.html',{root: __dirname})  
+
+})
+
+app.get('/about', (req, res) => {
+    // res.send('Page About')
+    res.sendFile('./about.html',{root: __dirname})  
+  })
+
+  app.get('/contact', (req, res) => {
+    // res.send('Page Contact!')
+    res.sendFile('./contact.html',{root: __dirname}) 
+  })
+
+  //Param
+//   app.get('/product/:idProd/category/:idCat',(req,res)=>{ //req.param.X     maka di url nya pake :X  (: sebagai penanda place holder param)
+//         //menangkap id dengan param
+//         res.send(`Product ID :${req.params.idProd} <br> Category ID : ${req.params.idCat}`)
+//   })
+
+//Query : mengambil category dengan cara query maka di url tidak perlu diisi tapi di browser perlu : /category/20 menjadi ?category=20
+  app.get('/product/:idProd',(req,res)=>{ //cara ngambil 20 dan categorynya dengan req query
+    //menangkap id dengan param
+    res.send(`Product ID :${req.params.idProd} <br> Category ID : ${req.query.category}`)
+})
+
+
+
+
+
+  app.use('/', (req, res) => {
+    res.status(404)
+    res.send('<H1>404</H1>') //res send kalau berhasil status codenya 304 tapi kita mau responnya adalah 404 maka pake method res.status
+    
+  })  
+ 
+
+
+
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})

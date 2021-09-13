@@ -1,0 +1,23 @@
+{
+  "name": "belajar-node-js-part-14-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roy301994/CreateWebServer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roy301994/CreateWebServer/issues"
+  },
+  "homepage": "https://github.com/roy301994/CreateWebServer#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
