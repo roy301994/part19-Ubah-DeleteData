@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Node JS Web Server versi html</title>
+    <title><%= title %> </title>
 </head>
 <body>
-    <h1>Home Page</h1>
+    <h1><%= title %></h1>
     <h3>Membuat Navigasi</h3>
     <ul>
         <li>
@@ -20,5 +20,18 @@
             <a href="/contact">Contact Page</a>
         </li>
     </ul>
+    <h2>halo <%=nama%></h2>
+    <h4>Daftar Mahasiswa</h4>
+    <% if (mahasiswa.length<1) { %>
+     <p>Data Mahasiswa tidak ada</p>
+    <% } %>
+   <% mahasiswa.forEach(mhs => { %>
+    <ul>
+        <li>Nama : <%= mhs.namaMHS %>  </li>
+        <li>email : <%= mhs.emailMHS %> </li>
+     </ul>   
+    
+   <% }) %>
+    
 </body>
 </html>
