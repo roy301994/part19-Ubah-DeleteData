@@ -1,0 +1,29 @@
+<%- include('layouts/header') %> 
+<%- include('layouts/nav') %> 
+  
+   <div class="container mt-3">
+       <div class="row">
+           <div class="col-md-8">
+               <h2>Detail Contact</h2>
+               <% if (!contactD) { %>
+                <div class="alert alert-danger fw-bold" role="alert">
+                    Data contact not found <a href="/contact" class="alert-link fw-normal"><br> &laquo; Back to Contact Page</a>.
+                  </div>
+               <% } else { %>
+               <!--cari di boodstrap card title-->
+               <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title"><%= contactD.nama %> </h5>
+                  <h6 class="card-subtitle mb-2 text-muted"><%= contactD.noHP %></h6>
+                  <p class="card-text"><%= contactD.email %></p>
+                  <a href="/contact" class="card-link">&laquo; Back to Contact Page</a><!--&laquo; untuk memunculkan panah-->
+                </div>
+              </div>
+
+              <% } %> 
+
+           </div>
+       </div>
+   </div>
+    
+<%- include('layouts/footer') %> 

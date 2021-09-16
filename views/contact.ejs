@@ -1,5 +1,52 @@
 <%- include('layouts/header') %> 
 <%- include('layouts/nav') %> 
   
-    <h1>Halaman Contact</h1>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Daftar Contact</h2>
+                <% if (contactsB.length===0) { %>
+                    <div class="alert alert-danger fw-bold" role="alert">
+                        There is no data contact yet.. <a href="/" class="alert-link fw-normal"><br> &laquo; Back to Home Page</a>.
+                      </div>
+                <% } else {%>
+
+                <!--cari di boodstrap table-->
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Nomor Handphone</th>
+                        <th scope="col">More Detail</th>
+                      </tr>
+                    </thead>
+<!--selalu biasakan buat data dummy dulu di contacts.json agar kita bisa tau nama property didalamnya apa saja saat kita buat template objectnya agar dynamis datanya-->
+<!---->
+                    <tbody><!--membuat nomor contact berurutan--> 
+                        <% contactsB.forEach((m,i) => {i++%>
+                            <tr>
+                                <th scope="row"><%= i++ %> </th>
+                                <!--Data Dynamic-->
+                                <td><%=m.nama%></td>
+                                <td><%=m.noHP%></td>
+                                <!--data Static-->
+                                <!-- 
+                                <td>Roy Naldo</td>
+                                <td>0811932932</td>
+                                -->
+                                <td><!--cari di boodstrap icon (badge pill)-->
+                                    <a href="/contact/<%=m.nama%>" class="badge rounded-pill bg-success"><i class="bi bi-info-circle"></i> detail</a>
+                                </td>
+                              </tr>
+                        <% }) %>
+                      
+
+                    </tbody>
+                  </table>
+
+                  <% } %> 
+            </div>
+        </div>
+    </div>
 <%- include('layouts/footer') %>  

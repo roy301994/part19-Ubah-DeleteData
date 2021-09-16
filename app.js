@@ -1,63 +1,39 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const morgan =require ('morgan')
+const {loadData,findContact}=require('./util/contacts')
 
-
-
-
-
+//middleware
 app.use(express.static('public'))
 
-
-
-
-
-
-
-
-//gunakan ejs
+//menggunakan ejs
 app.set('view engine','ejs')
-
-//Part 16 membuat middleware
-app.use((req,res,next)=>{
-  console.log('Time: ',Date.now())
-  next()
-})
-
-
-//third party middleware ->morgan adalah logger
-app.use(morgan('dev'))
-
-
-
-
 
 app.get('/', (req, res) => {
   
   //dengan ejs.each akan diloop sebanyak jumlah array dari mahasiswa kebetulan isi array ada 3 object
  
 //Kondisi data KOSONG 
-  const mahasiswa =[]
+  // const mahasiswa =[]
 
 //Kondisi data ADA
-//   const mahasiswa =[{
-// namaMHS: 'Mahasiswa A',
-// emailMHS: 'A@email.com'
+  const mahasiswa =[{
+namaMHS: 'Mahasiswa A',
+emailMHS: 'A@email.com'
 
-//   },
-//   {
-//     namaMHS: 'Mahasiswa B',
-//     emailMHS: 'B@email.com'
+  },
+  {
+    namaMHS: 'Mahasiswa B',
+    emailMHS: 'B@email.com'
     
-//       },
-//       {
-//         namaMHS: 'Mahasiswa C',
-//         emailMHS: 'C@email.com'
+      },
+      {
+        namaMHS: 'Mahasiswa C',
+        emailMHS: 'C@email.com'
         
-//           }
+          }
 
-// ]
+]
   
   
 //halama di html semua variablenya dicreate di dalam res.render sehingga dapat diolah dengan lebih mudah saat ingin menampilkan data berulang di page html
@@ -76,9 +52,34 @@ app.get('/about', (req, res) => {
   })
 
   app.get('/contact', (req, res) => {
-    res.render('contact')
+
+    const contactsA=loadData()//kita sudah buat methodnya loadData dimana load data akan membaca kontak yg kita buat 
+    // console.log(contacts) //diconsole datanya sudah keluar sekarang kita kirim ke view biar keluar diweb kalau di console hanya keluar di terminal saja
+    res.render('contact',{
+      contactsB:contactsA  //diubah ke object
+    })
     // res.sendFile('./contact.html',{root: __dirname}) 
   })
+
+  //route untuk detail,yg diatas contact tanpa param yg dibawah contact dengan param
+
+
+  app.get('/contact/:nama', (req, res) => {
+//mencari kontak yg spesific sesuai dengan nama yg dikirim
+    const contactC=findContact(req.params.nama)//kita tidak pake method loadData karena load data menampilkan seluruh data all
+    //"detailcontactnama" dari file contact.js akan masuk menjadi variable contactC
+    res.render('detail',{ //'detail' maksudnya data yang kita dapat dari findcontact akan dikirim ke file'detail'ejs,fungsinya untuk mengkondeksikan file ejs dengan route,knp perlu di koneksikan karena file ejs yang menampikan data diweb
+      contactD:contactC  //data yg akan dikirim nantinya adalah contactD
+    })
+   
+  })
+
+
+
+
+
+
+
 
   app.get('/product/:idProd',(req,res)=>{ //cara ngambil 20 dan categorynya dengan req query
 
