@@ -1,25 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %> </title>
-</head>
-<body>
+<%- include('layouts/header') %> 
+<%- include('layouts/nav') %> 
     <h1><%= title %></h1>
-    <h3>Membuat Navigasi</h3>
-    <ul>
-        <li>
-            <a href="/">Home Page</a>
-        </li>
-        <li>
-            <a href="/about">About Page</a>
-        </li>
-        <li>
-            <a href="/contact">Contact Page</a>
-        </li>
-    </ul>
     <h2>halo <%=nama%></h2>
     <h4>Daftar Mahasiswa</h4>
     <% if (mahasiswa.length<1) { %>
@@ -33,5 +14,4 @@
     
    <% }) %>
     
-</body>
-</html>
+   <%- include('layouts/footer') %> 

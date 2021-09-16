@@ -1,15 +1,36 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const morgan =require ('morgan')
 
 
 
-//belajar middleware
+
+
+app.use(express.static('public'))
+
+
+
+
+
 
 
 
 //gunakan ejs
 app.set('view engine','ejs')
+
+//Part 16 membuat middleware
+app.use((req,res,next)=>{
+  console.log('Time: ',Date.now())
+  next()
+})
+
+
+//third party middleware ->morgan adalah logger
+app.use(morgan('dev'))
+
+
+
 
 
 app.get('/', (req, res) => {
@@ -17,26 +38,26 @@ app.get('/', (req, res) => {
   //dengan ejs.each akan diloop sebanyak jumlah array dari mahasiswa kebetulan isi array ada 3 object
  
 //Kondisi data KOSONG 
-  // const mahasiswa =[]
+  const mahasiswa =[]
 
 //Kondisi data ADA
-  const mahasiswa =[{
-namaMHS: 'Mahasiswa A',
-emailMHS: 'A@email.com'
+//   const mahasiswa =[{
+// namaMHS: 'Mahasiswa A',
+// emailMHS: 'A@email.com'
 
-  },
-  {
-    namaMHS: 'Mahasiswa B',
-    emailMHS: 'B@email.com'
+//   },
+//   {
+//     namaMHS: 'Mahasiswa B',
+//     emailMHS: 'B@email.com'
     
-      },
-      {
-        namaMHS: 'Mahasiswa C',
-        emailMHS: 'C@email.com'
+//       },
+//       {
+//         namaMHS: 'Mahasiswa C',
+//         emailMHS: 'C@email.com'
         
-          }
+//           }
 
-]
+// ]
   
   
 //halama di html semua variablenya dicreate di dalam res.render sehingga dapat diolah dengan lebih mudah saat ingin menampilkan data berulang di page html
