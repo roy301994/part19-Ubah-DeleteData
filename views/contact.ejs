@@ -5,6 +5,19 @@
         <div class="row">
             <div class="col-md-8">
                 <h2>Daftar Contact</h2>
+
+                <a href="/contact/add" class="btn btn-primary mb-2">Add Data Contact</a>
+
+
+                <% if (msg.length!==0) { %><!--kalau tidak ada isinya variable msg maka jangan tampilin alertnya-->
+                    <div class="alert alert-success" role="alert">
+                        <%= msg %> <!--cara menampilkan pesan yg sudah kita buat sebelumnya-->
+                      </div>
+                <% } %>
+
+
+
+
                 <% if (contactsB.length===0) { %>
                     <div class="alert alert-danger fw-bold" role="alert">
                         There is no data contact yet.. <a href="/" class="alert-link fw-normal"><br> &laquo; Back to Home Page</a>.
