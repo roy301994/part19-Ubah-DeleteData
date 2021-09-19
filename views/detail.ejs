@@ -14,9 +14,15 @@
                <div class="card" style="width: 18rem;">
                 <div class="card-body">
                   <h5 class="card-title"><%= contactD.nama %> </h5>
-                  <h6 class="card-subtitle mb-2 text-muted"><%= contactD.noHP %></h6>
+                  <h6 class="card-subtitle mb-2 text-muted"><%= contactD.noHP %></h6> 
                   <p class="card-text"><%= contactD.email %></p>
-                  <a href="/contact" class="card-link">&laquo; Back to Contact Page</a><!--&laquo; untuk memunculkan panah-->
+
+                  <a href="/contact/edit/<%= contactD.nama%>" class= "btn btn-info badge" ">Edit</a>
+                  <!--route untuk delete-->
+                  <a href="/contact/delete/<%= contactD.nama%>" class= "btn btn-danger badge" onclick="return confirm('Are you sure ?')">Delete</a>
+                  <!--onclick confirm kalau ditekan yes akan menuju route diatas kalau tidak maka tidak akan meuju route-->
+                  <!--sebenarnya bisa saja routenya hanya contact/:nama lalu methodnya ganti delete,hanya krn methodnya make get nanti sama maka harus dibedakan menjadi contact/delete/:nama-->
+                  <a href="/contact" class="card-link d-block mt-3">&laquo; Back to Contact Page</a><!--&laquo; untuk memunculkan panah-->
                 </div>
               </div>
 

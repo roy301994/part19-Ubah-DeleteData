@@ -19,7 +19,7 @@ if (!fs.existsSync(dataPath)) {
 
 //(ambil semua data di contact.json)
 const loadData = () => {
-  const dataBuffer = fs.readFileSync("data/contacts.json"); //read file berfungsi untuk buka file 
+  const dataBuffer = fs.readFileSync("data/contacts.json"); //read file berfungsi untuk buka file
   const dataJson = JSON.parse(dataBuffer); //data buffer yg sudah dibuka lalu diparse jadi json lalu dimasukkan ke folder dataJson
   return dataJson; //lalu datajson dikirim,sehigga nanti isi dari variable contact yg ada di app js adalah dataJson yg sudah format json
 };
@@ -62,7 +62,33 @@ const checkDuplicateContact = (nama) => {
 
 //find itu untuk menelusuri ketika ketemu satu selesai
 
-module.exports = { loadData, findContact, addContact, checkDuplicateContact };
+const deleteContact = (nama) => {
+  const contacts = loadData();
+  //menulusuri isi dari object contact,cari semua data yg bukan nama,jadi kita akan menghilangkan kontak nama yg kita cari
+  //jadi contact baru akan berisi list contact selain yg kita cari
+  //find mencari kalau uda ketemu stop kalau filter mencari meskipun sudah dapaet akan mencari sampai semuanya ditelusuri
+  // contact.filter(m)=>m.nama   => kalau kaya gini salah harus ditampung fungsinya ke dalam variable sehingga kita tinggal buat condtional dari variablenya
+  const filterContact = contacts.filter((contact) => contact.nama != nama);
+  // console.log(filterContact) dengan ini baru sampe tahap menghapus tapi di db blm dihapus,harus ditimpa dengan data baru
+  saveContacts(filterContact)
+};
+
+const updateContact=(contactBaru)=>{//?contact baru ini akan menimpa kontak yg diedit
+  const contacts = loadData();
+  //lakukan filter contact yg namanya sama dengan nama lama
+  const filterContact=contacts.filter((contact)=>contact.nama!==contactBaru.oldNama)
+  //filter contact berisi data contact tanpa berisi data yg baru saja di rubah
+  //!debug 
+  // console.log(filterContact,contactBaru)
+  //contact baru akan dipush ke filtercontact tapi tanpa property oldnama,harus delete property
+  delete contactBaru.oldNama
+  filterContact.push(contactBaru)
+  saveContacts(filterContact)
+}
+
+
+
+module.exports = { loadData, findContact, addContact, checkDuplicateContact,deleteContact,updateContact };
 //hanya loadData saja karena datapath dan dirpath tidak akan dikirim untuk digunakan di app.js
 
 //kondisi diawal adalah data/contacts.json tidak ada tapi karena file loadData di panggil di file app.js dan kita nodemon start yang mana menjalankan node appnya
